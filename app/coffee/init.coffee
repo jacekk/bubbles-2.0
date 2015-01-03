@@ -8,10 +8,7 @@
 	$(window).load ()->
 		$('#display-options select').selectBoxIt()
 		adjustLayout()
-		new Bubbles 'display-area', {
-			amount: 24
-			delay: 2
-		}
+		new Bubbles 'display-area', {}
 		return
 	return
 )(jQuery, window)
