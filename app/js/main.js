@@ -75,25 +75,29 @@ Bubbles = (function() {
 
 })();
 
-angular.module('ngApp', []).filter('fixed', function($filter) {
-  return function(input, precision) {
-    if (precision == null) {
-      precision = 1;
-    }
-    return input.toFixed(precision);
-  };
-}).controller('OptionsController', function($scope) {
-  var i;
-  $scope.strokeWidths = [0, 1, 2, 3, 4];
-  $scope.zeroToOneRange = (function() {
-    var _i, _results;
-    _results = [];
-    for (i = _i = 0; _i <= 10; i = ++_i) {
-      _results.push(i / 10);
-    }
-    return _results;
-  })();
-});
+angular.module('ngApp', []).filter('fixed', [
+  '$filter', function($filter) {
+    return function(input, precision) {
+      if (precision == null) {
+        precision = 1;
+      }
+      return input.toFixed(precision);
+    };
+  }
+]).controller('OptionsController', [
+  '$scope', function($scope) {
+    var i;
+    $scope.strokeWidths = [0, 1, 2, 3, 4];
+    $scope.zeroToOneRange = (function() {
+      var _i, _results;
+      _results = [];
+      for (i = _i = 0; _i <= 10; i = ++_i) {
+        _results.push(i / 10);
+      }
+      return _results;
+    })();
+  }
+]);
 
 (function($, window) {
   var adjustLayout;
