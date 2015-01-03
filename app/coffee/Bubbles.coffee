@@ -1,29 +1,31 @@
 class Bubbles
 
+	ctx: null
+	height: 0
+	width: 0
+
+	refreshInt: 35
+	children: []
+	options: {}
+
 	defaultOptions: {
 		maxSize: 200
 		minSize: 10
 		amount: 12
 		delay: 1
-		strokeWid: 2
-		color1: 255
-		color2: 25
-		color3: 255
-		strokeOpac: 0
-		centerOpac: 1
-		sideOpac: 0.1
+		r: 255
+		g: 25
+		b: 255
+		strokeWidth: 2
+		strokeOpacity: 0
+		centerOpacity: 1
+		sideOpacity: 0.1
 	}
 
-	ctx: null
-
-	runtime: {
+	cache: {
 		strokeCol: ''
 		centerCol: ''
 		sideCol: ''
-		refreshInt: 35
-		height: 0
-		width: 0
-		children: []
 	}
 
 	constructor: (canvasId, options)->
@@ -31,15 +33,17 @@ class Bubbles
 		if not el or not el.getContext or not el.getContext('2d')
 			console.log 'ERR: no 2d context'
 			return
+		@initProperties(el, options)
+		@initChildren()
+		return
+
+	initProperties: (el, options)->
+		@height = el.height
+		@width = el.width
 		@ctx = el.getContext('2d')
-		@overrideOptions options
-		@init()
+		for key, defaultValue of @defaultOptions
+			@options[key] = if options[key]? then options[key] else defaultValue
 		return
 
-	overrideOptions: (options)->
-		console.log '@todo overrideOptions'
-		return
-
-	init: ()->
-		console.log '@todo init'
+	initChildren: ()->
 		return

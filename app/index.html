@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="ngApp">
 	<head>
 		<meta charset="utf-8">
 		<title>JacekK.Canvas.Bubbles2.0</title>
@@ -21,17 +21,31 @@
 		<!-- endbuild -->
 	</head>
 	<body>
-		<div id="display-options">
-			<label>option 1</label>
-			<select class="test-uno">
-				<option value="a">A</option>
-				<option value="b">B</option>
-			</select>
-			<label>option 2</label>
-			<select class="test-dwo">
-				<option value="axx">Ax</option>
-				<option value="bxx">Bx</option>
-			</select>
+		<div id="display-options" ng-controller="OptionsController">
+			<div class="option-group">
+				<label>Stroke Width</label>
+				<select class="option-stroke-width">
+					<option ng-repeat="item in strokeWidths" value="{{ item }}">{{ item }}</option>
+				</select>
+			</div>
+			<div class="option-group">
+				<label>Stroke Opacity</label>
+				<select class="option-stroke-opacity">
+					<option ng-repeat="item in zeroToOneRange" value="{{ item }}">{{ item | fixed }}</option>
+				</select>
+			</div>
+			<div class="option-group">
+				<label>Center Opacity</label>
+				<select class="option-center-opacity">
+					<option ng-repeat="item in zeroToOneRange" value="{{ item }}">{{ item | fixed }}</option>
+				</select>
+			</div>
+			<div class="option-group">
+				<label>Side Opacity</label>
+				<select class="option-side-opacity">
+					<option ng-repeat="item in zeroToOneRange" value="{{ item }}">{{ item | fixed }}</option>
+				</select>
+			</div>
 		</div>
 		<canvas id="display-area">Canvas element not supported.</canvas>
 

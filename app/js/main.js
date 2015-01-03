@@ -13,30 +13,36 @@ Bubble = (function() {
 var Bubbles;
 
 Bubbles = (function() {
+  Bubbles.prototype.ctx = null;
+
+  Bubbles.prototype.height = 0;
+
+  Bubbles.prototype.width = 0;
+
+  Bubbles.prototype.refreshInt = 35;
+
+  Bubbles.prototype.children = [];
+
+  Bubbles.prototype.options = {};
+
   Bubbles.prototype.defaultOptions = {
     maxSize: 200,
     minSize: 10,
     amount: 12,
     delay: 1,
-    strokeWid: 2,
-    color1: 255,
-    color2: 25,
-    color3: 255,
-    strokeOpac: 0,
-    centerOpac: 1,
-    sideOpac: 0.1
+    r: 255,
+    g: 25,
+    b: 255,
+    strokeWidth: 2,
+    strokeOpacity: 0,
+    centerOpacity: 1,
+    sideOpacity: 0.1
   };
 
-  Bubbles.prototype.ctx = null;
-
-  Bubbles.prototype.runtime = {
+  Bubbles.prototype.cache = {
     strokeCol: '',
     centerCol: '',
-    sideCol: '',
-    refreshInt: 35,
-    height: 0,
-    width: 0,
-    children: []
+    sideCol: ''
   };
 
   function Bubbles(canvasId, options) {
@@ -46,23 +52,48 @@ Bubbles = (function() {
       console.log('ERR: no 2d context');
       return;
     }
-    this.ctx = el.getContext('2d');
-    this.overrideOptions(options);
-    this.init();
+    this.initProperties(el, options);
+    this.initChildren();
     return;
   }
 
-  Bubbles.prototype.overrideOptions = function(options) {
-    console.log('@todo overrideOptions');
+  Bubbles.prototype.initProperties = function(el, options) {
+    var defaultValue, key, _ref;
+    this.height = el.height;
+    this.width = el.width;
+    this.ctx = el.getContext('2d');
+    _ref = this.defaultOptions;
+    for (key in _ref) {
+      defaultValue = _ref[key];
+      this.options[key] = options[key] != null ? options[key] : defaultValue;
+    }
   };
 
-  Bubbles.prototype.init = function() {
-    console.log('@todo init');
-  };
+  Bubbles.prototype.initChildren = function() {};
 
   return Bubbles;
 
 })();
+
+angular.module('ngApp', []).filter('fixed', function($filter) {
+  return function(input, precision) {
+    if (precision == null) {
+      precision = 1;
+    }
+    return input.toFixed(precision);
+  };
+}).controller('OptionsController', function($scope) {
+  var i;
+  $scope.strokeWidths = [0, 1, 2, 3, 4];
+  $scope.zeroToOneRange = (function() {
+    var _i, _results;
+    _results = [];
+    for (i = _i = 0; _i <= 10; i = ++_i) {
+      _results.push(i / 10);
+    }
+    return _results;
+  })();
+});
 
 (function($, window) {
   var adjustLayout;
@@ -76,6 +107,9 @@ Bubbles = (function() {
   $(window).load(function() {
     $('#display-options select').selectBoxIt();
     adjustLayout();
-    new Bubbles('display-area', {});
+    new Bubbles('display-area', {
+      amount: 24,
+      delay: 2
+    });
   });
 })(jQuery, window);
