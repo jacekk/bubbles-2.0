@@ -23,6 +23,24 @@
 	<body>
 		<div id="display-options" ng-controller="OptionsController">
 			<div class="option-group">
+				<label>Red</label>
+				<select class="option-color-red">
+					<option ng-repeat="item in colorRange" value="{{ item }}">{{ item }}</option>
+				</select>
+			</div>
+			<div class="option-group">
+				<label>Green</label>
+				<select class="option-color-green">
+					<option ng-repeat="item in colorRange" value="{{ item }}">{{ item }}</option>
+				</select>
+			</div>
+			<div class="option-group">
+				<label>Blue</label>
+				<select class="option-color-blue">
+					<option ng-repeat="item in colorRange" value="{{ item }}">{{ item }}</option>
+				</select>
+			</div>
+			<div class="option-group">
 				<label>Stroke Width</label>
 				<select class="option-stroke-width">
 					<option ng-repeat="item in strokeWidths" value="{{ item }}">{{ item }}</option>

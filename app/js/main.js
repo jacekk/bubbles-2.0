@@ -23,7 +23,7 @@ Bubble = (function() {
     var opts;
     opts = this.parent.options;
     this.radius = Math.round(Math.random() * (opts.maxSize - opts.minSize) + opts.minSize);
-    this.x = Math.round(Math.random() * this.parent.width * 0.5 + this.parent.width * 0.25);
+    this.x = Math.round(Math.random() * this.parent.width);
     this.speed = Math.round(Math.random() * 5 + 4) / opts.delay;
     this.radians = Math.random() * Math.PI;
     if (Math.random() > 0.5) {
@@ -43,11 +43,22 @@ Bubble = (function() {
     return this.y < -this.radius;
   };
 
+  Bubble.prototype.generateGradient = function() {
+    var gradient, grdX, grdY;
+    grdX = this.x - this.radius / 3;
+    grdY = this.y - this.radius / 3;
+    gradient = this.parent.ctx.createRadialGradient(grdX, grdY, this.radius / 2, grdX, grdY, this.radius * 1.5);
+    gradient.addColorStop(0, this.parent.cache.centerColor);
+    gradient.addColorStop(1, this.parent.cache.sideColor);
+    return gradient;
+  };
+
   return Bubble;
 
 })();
 
-var Bubbles;
+var Bubbles,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 Bubbles = (function() {
   Bubbles.prototype.ctx = null;
@@ -56,33 +67,34 @@ Bubbles = (function() {
 
   Bubbles.prototype.width = 0;
 
-  Bubbles.prototype.refreshInt = 35;
-
   Bubbles.prototype.children = [];
 
   Bubbles.prototype.options = {};
 
   Bubbles.prototype.defaultOptions = {
-    maxSize: 150,
+    maxSize: 80,
     minSize: 20,
     amount: 100,
-    delay: 2,
-    r: 255,
-    g: 25,
+    delay: 1,
+    r: 0,
+    g: 144,
     b: 255,
     strokeWidth: 2,
-    strokeOpacity: 0,
-    centerOpacity: 1,
-    sideOpacity: 0.1
+    strokeOpacity: 0.4,
+    centerOpacity: 0.08,
+    sideOpacity: 0.2
   };
 
   Bubbles.prototype.cache = {
-    strokeColor: 'rgba(0, 255, 0, 0.7)',
-    centerColor: 'rgba(0, 255, 0, 0.1)',
-    sideColor: 'rgba(0, 255, 0, 0.3)'
+    strokeColor: '',
+    centerColor: '',
+    sideColor: ''
   };
 
   function Bubbles(canvasId, options) {
+    this.removeChildrenIntv = __bind(this.removeChildrenIntv, this);
+    this.addChildrenIntv = __bind(this.addChildrenIntv, this);
+    this.resetCache = __bind(this.resetCache, this);
     var el;
     el = document.getElementById(canvasId);
     if (!el || !el.getContext || !el.getContext('2d')) {
@@ -90,7 +102,7 @@ Bubbles = (function() {
       return;
     }
     this.initProperties(el, options);
-    this.initChildren();
+    this.initIntervals();
     this.generateFrame();
     return;
   }
@@ -107,27 +119,41 @@ Bubbles = (function() {
     }
   };
 
-  Bubbles.prototype.initChildren = function() {
-    var _;
-    _ = this;
-    setInterval(function() {
-      var item;
-      _.children = (function() {
-        var _i, _len, _ref, _results;
-        _ref = _.children;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          item = _ref[_i];
-          if (!item.reachedTop()) {
-            _results.push(item);
-          }
+  Bubbles.prototype.initIntervals = function() {
+    this.resetCache();
+    setInterval(this.resetCache, 1000);
+    setInterval(this.addChildrenIntv, 100);
+    setInterval(this.removeChildrenIntv, 2000);
+  };
+
+  Bubbles.prototype.resetCache = function() {
+    var color;
+    color = "rgba(" + this.options.r + ", " + this.options.g + ", " + this.options.b + ", {0})";
+    this.cache.strokeColor = color.replace('{0}', this.options.strokeOpacity);
+    this.cache.centerColor = color.replace('{0}', this.options.centerOpacity);
+    this.cache.sideColor = color.replace('{0}', this.options.sideOpacity);
+  };
+
+  Bubbles.prototype.addChildrenIntv = function() {
+    if (this.children.length < this.options.amount) {
+      this.children.push(new Bubble(this));
+    }
+  };
+
+  Bubbles.prototype.removeChildrenIntv = function() {
+    var item;
+    this.children = (function() {
+      var _i, _len, _ref, _results;
+      _ref = this.children;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        item = _ref[_i];
+        if (!item.reachedTop()) {
+          _results.push(item);
         }
-        return _results;
-      })();
-      if (_.children.length < _.options.amount) {
-        _.children.push(new Bubble(_));
       }
-    }, 250);
+      return _results;
+    }).call(this);
   };
 
   Bubbles.prototype.generateFrame = function() {
@@ -148,20 +174,14 @@ Bubbles = (function() {
     _ = this;
     setTimeout(function() {
       _.generateFrame();
-    }, this.refreshInt);
+    }, 35);
   };
 
   Bubbles.prototype.addCtxChild = function(item) {
-    var grd, grdX, grdY;
     this.ctx.beginPath();
     this.ctx.moveTo(item.x + item.radius, item.y);
     this.ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2, true);
-    grdX = item.x - item.radius / 3;
-    grdY = item.y - item.radius / 3;
-    grd = this.ctx.createRadialGradient(grdX, grdY, item.radius / 2, grdX, grdY, item.radius * 1.5);
-    grd.addColorStop(0, this.cache.centerColor);
-    grd.addColorStop(1, this.cache.sideColor);
-    this.ctx.fillStyle = grd;
+    this.ctx.fillStyle = item.generateGradient();
     this.ctx.fill();
     this.ctx.stroke();
   };
@@ -191,16 +211,25 @@ angular.module('ngApp', []).filter('fixed', [
       }
       return _results;
     })();
+    $scope.colorRange = (function() {
+      var _i, _results;
+      _results = [];
+      for (i = _i = 3; _i <= 16; i = ++_i) {
+        _results.push(i * 16);
+      }
+      return _results;
+    })();
   }
 ]);
 
 (function($, window) {
   var adjustLayout;
   adjustLayout = function() {
-    var canvasEl, topBarHei;
-    topBarHei = 50;
+    var canvasEl, topBarHei, topBarPaddAndBorder;
     canvasEl = $('#display-area')[0];
     canvasEl.width = window.innerWidth;
+    topBarPaddAndBorder = 9;
+    topBarHei = $('#display-options').height() + topBarPaddAndBorder;
     canvasEl.height = window.innerHeight - topBarHei;
   };
   $(window).load(function() {
