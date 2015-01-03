@@ -1,12 +1,30 @@
 // bower:sass
 // endbower
 
-body
-  color: #fff
-  font-family: Verdana
-  font-size: 12px
-  text-align: center
-  background: #222
+html, body
+	margin: 0
+	padding: 0
 
-select
-  color: #000
+body
+	font-family: Verdana
+	font-size: 14px
+	text-align: center
+	background: #222
+
+#display-options
+	display: block
+	z-index: 10
+	height: 41px
+	padding-top: 8px
+	border-bottom: #777 solid 1px
+	> *
+		text-align: center
+		display: inline-block
+		vertical-align: middle
+	> label
+		color: #aaa
+		padding-left: 40px
+
+#display-area
+	z-index: 5
+	display: block

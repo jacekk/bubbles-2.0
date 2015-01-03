@@ -1,52 +1,54 @@
 <!doctype html>
 <html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <title>JacekK.Canvas.Bubbles2.0</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="shortcut icon" href="/favicon.ico">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.) styles/vendor.css -->
-        <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/jquery-selectboxit/src/stylesheets/jquery.selectBoxIt.css" />
-        <!-- endbower -->
-        <!-- endbuild -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
-        <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
-        <!-- endbuild -->
+	<head>
+		<meta charset="utf-8">
+		<title>JacekK.Canvas.Bubbles2.0</title>
+		<meta name="Author" content="www.jacek-k.net" />
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+		<!-- build:css(.) styles/vendor.css -->
+		<!-- bower:css -->
+		<link rel="stylesheet" href="bower_components/jquery-selectboxit/src/stylesheets/jquery.selectBoxIt.css" />
+		<!-- endbower -->
+		<!-- endbuild -->
+		<!-- build:css(.tmp) styles/main.css -->
+		<link rel="stylesheet" href="styles/main.css">
+		<!-- endbuild -->
+		<!-- build:js scripts/vendor/modernizr.js -->
+		<script src="bower_components/modernizr/modernizr.js"></script>
+		<!-- endbuild -->
+	</head>
+	<body>
+		<div id="display-options">
+			<label>option 1</label>
+			<select class="test-uno">
+				<option value="a">A</option>
+				<option value="b">B</option>
+			</select>
+			<label>option 2</label>
+			<select class="test-dwo">
+				<option value="axx">Ax</option>
+				<option value="bxx">Bx</option>
+			</select>
+		</div>
+		<canvas id="display-area">Canvas element not supported.</canvas>
 
-    </head>
-    <body>
-        <div class="display-options">
-            <select class="test-uno">
-                <option value="a">A</option>
-                <option value="b">B</option>
-            </select>
-        </div>
-        <h3>Bubbles @ Canvas (HTML5)</h3>
-        <canvas id="display-area">Canvas element not supported.</canvas>
+		<!-- build:js(.) scripts/vendor.js -->
+		<!-- bower:js -->
+		<script src="bower_components/es5-shim/es5-shim.js"></script>
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/json3/lib/json3.js"></script>
+		<script src="bower_components/jqueryui/jquery-ui.js"></script>
+		<script src="bower_components/jquery-widget/app/scripts/directives/jqueryWidget.js"></script>
+		<script src="bower_components/jquery-selectboxit/src/javascripts/jquery.selectBoxIt.js"></script>
+		<!-- endbower -->
+		<!-- endbuild -->
 
-
-
-
-        <!-- build:js(.) scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/es5-shim/es5-shim.js"></script>
-        <script src="bower_components/jquery/dist/jquery.js"></script>
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/json3/lib/json3.js"></script>
-        <script src="bower_components/jqueryui/jquery-ui.js"></script>
-        <script src="bower_components/jquery-widget/app/scripts/directives/jqueryWidget.js"></script>
-        <script src="bower_components/jquery-selectboxit/src/javascripts/jquery.selectBoxIt.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
-
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="js/main.js"></script>
-        <!-- endbuild -->
+		<!-- build:js({app,.tmp}) scripts/main.js -->
+		<script src="js/main.js"></script>
+		<!-- endbuild -->
 </body>
 </html>
