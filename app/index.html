@@ -21,48 +21,62 @@
 		<!-- endbuild -->
 	</head>
 	<body>
-		<div id="display-options" ng-controller="OptionsController">
+		<div id="display-options" ng-controller="OptionsController" ng-init="init()">
 			<div class="option-group">
 				<label>Red</label>
-				<select class="option-color-red">
-					<option ng-repeat="item in colorRange" value="{{ item }}">{{ item }}</option>
-				</select>
+				<select
+					ng-model="colorRed"
+					ng-options="item for item in colorRange"
+					ng-change="onOptionChange('colorRed', 'r')"
+				></select>
 			</div>
 			<div class="option-group">
 				<label>Green</label>
-				<select class="option-color-green">
-					<option ng-repeat="item in colorRange" value="{{ item }}">{{ item }}</option>
-				</select>
+				<select
+					ng-model="colorGreen"
+					ng-options="item for item in colorRange"
+					ng-change="onOptionChange('colorGreen', 'g')"
+				></select>
 			</div>
 			<div class="option-group">
 				<label>Blue</label>
-				<select class="option-color-blue">
-					<option ng-repeat="item in colorRange" value="{{ item }}">{{ item }}</option>
-				</select>
+				<select
+					ng-model="colorBlue"
+					ng-options="item for item in colorRange"
+					ng-change="onOptionChange('colorBlue', 'b')"
+				></select>
 			</div>
 			<div class="option-group">
 				<label>Stroke Width</label>
-				<select class="option-stroke-width">
-					<option ng-repeat="item in strokeWidths" value="{{ item }}">{{ item }}</option>
-				</select>
+				<select
+					ng-model="strokeWidth"
+					ng-options="item for item in strokeWidths"
+					ng-change="onOptionChange('strokeWidth')"
+				></select>
 			</div>
 			<div class="option-group">
 				<label>Stroke Opacity</label>
-				<select class="option-stroke-opacity">
-					<option ng-repeat="item in zeroToOneRange" value="{{ item }}">{{ item | fixed }}</option>
-				</select>
+				<select
+					ng-model="strokeOpacity"
+					ng-options="item as item for item in zeroToOneRange"
+					ng-change="onOptionChange('strokeOpacity')"
+				></select>
 			</div>
 			<div class="option-group">
 				<label>Center Opacity</label>
-				<select class="option-center-opacity">
-					<option ng-repeat="item in zeroToOneRange" value="{{ item }}">{{ item | fixed }}</option>
-				</select>
+				<select
+					ng-model="centerOpacity"
+					ng-options="item as item for item in zeroToOneRange"
+					ng-change="onOptionChange('centerOpacity')"
+				></select>
 			</div>
 			<div class="option-group">
 				<label>Side Opacity</label>
-				<select class="option-side-opacity">
-					<option ng-repeat="item in zeroToOneRange" value="{{ item }}">{{ item | fixed }}</option>
-				</select>
+				<select
+					ng-model="sideOpacity"
+					ng-options="item as item for item in zeroToOneRange"
+					ng-change="onOptionChange('sideOpacity')"
+				></select>
 			</div>
 		</div>
 		<canvas id="display-area">Canvas element not supported.</canvas>

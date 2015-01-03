@@ -89,5 +89,6 @@ class Bubbles
 		@ctx.arc item.x, item.y, item.radius, 0, Math.PI * 2, true
 		@ctx.fillStyle = item.generateGradient()
 		@ctx.fill()
-		@ctx.stroke()
+		if @options.strokeWidth isnt 0
+			@ctx.stroke()
 		return

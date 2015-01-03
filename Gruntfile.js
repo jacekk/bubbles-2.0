@@ -272,13 +272,10 @@ module.exports = function (grunt) {
                     bare: true
                 },
                 files: {
-                    // 'path/to/result.js': 'path/to/source.coffee', // 1:1 compile
-                    // '<%= config.app %>/js/main.js': ['<%= config.app %>/coffee/*.coffee'] // compile and concat into single file
                     '<%= config.app %>/js/main.js': [
                         '<%= config.app %>/coffee/Bubble.coffee',
                         '<%= config.app %>/coffee/Bubbles.coffee',
                         '<%= config.app %>/coffee/ngApp.coffee',
-                        '<%= config.app %>/coffee/init.coffee'
                     ]
                 }
             },
