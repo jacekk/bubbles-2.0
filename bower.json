@@ -1,8 +1,18 @@
 {
-  "name": "bubbles2",
-  "private": true,
-  "dependencies": {
-    "jquery": "~1.11.1",
-    "modernizr": "~2.8.2"
-  }
+    "name": "Bubbles2.0",
+    "private": true,
+    "dependencies": {
+        "jquery": "~1.11.1",
+        "modernizr": "~2.8.2",
+        "jquery-widget": "*",
+        "jquery-selectboxit": "~3.8.1"
+    },
+    "overrides": {
+        "jquery-selectboxit": {
+            "main": [
+                "src/javascripts/jquery.selectBoxIt.js",
+                "src/stylesheets/jquery.selectBoxIt.css"
+            ]
+        }
+    }
 }
