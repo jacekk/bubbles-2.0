@@ -4,28 +4,27 @@ class Bubbles
 	height: 0
 	width: 0
 
-	refreshInt: 35
 	children: []
 	options: {}
 
 	defaultOptions: {
-		maxSize: 150
+		maxSize: 80
 		minSize: 20
 		amount: 100
-		delay: 2
-		r: 255
-		g: 25
+		delay: 1
+		r: 0
+		g: 144
 		b: 255
 		strokeWidth: 2
-		strokeOpacity: 0
-		centerOpacity: 1
-		sideOpacity: 0.1
+		strokeOpacity: 0.4
+		centerOpacity: 0.08
+		sideOpacity: 0.2
 	}
 
 	cache: {
-		strokeColor: 'rgba(0, 255, 0, 0.7)'
-		centerColor: 'rgba(0, 255, 0, 0.1)'
-		sideColor: 'rgba(0, 255, 0, 0.3)'
+		strokeColor: ''
+		centerColor: ''
+		sideColor: ''
 	}
 
 	constructor: (canvasId, options)->
@@ -34,7 +33,7 @@ class Bubbles
 			console.log 'ERR: no 2d context'
 			return
 		@initProperties(el, options)
-		@initChildren()
+		@initIntervals()
 		@generateFrame()
 		return
 
@@ -46,16 +45,27 @@ class Bubbles
 			@options[key] = if options[key]? then options[key] else defaultValue
 		return
 
-	initChildren: ()->
-		_ = @
-		setInterval ()->
-			# remove old elements
-			_.children = (item for item in _.children when not item.reachedTop())
-			# add new elements
-			if _.children.length < _.options.amount
-				_.children.push new Bubble(_)
-			return
-		, 250
+	initIntervals: ()->
+		@resetCache()
+		setInterval @resetCache, 1000
+		setInterval @addChildrenIntv, 100
+		setInterval @removeChildrenIntv, 2000
+		return
+
+	resetCache: ()=>
+		color = "rgba(#{@options.r}, #{@options.g}, #{@options.b}, {0})"
+		@cache.strokeColor = color.replace '{0}', @options.strokeOpacity
+		@cache.centerColor = color.replace '{0}', @options.centerOpacity
+		@cache.sideColor = color.replace '{0}', @options.sideOpacity
+		return
+
+	addChildrenIntv: ()=>
+		if @children.length < @options.amount
+			@children.push new Bubble(@)
+		return
+
+	removeChildrenIntv: ()=>
+		@children = (item for item in @children when not item.reachedTop())
 		return
 
 	generateFrame: ()->
@@ -70,19 +80,14 @@ class Bubbles
 		setTimeout ()->
 			_.generateFrame()
 			return
-		, @refreshInt
+		, 35
 		return
 
 	addCtxChild: (item)->
 		@ctx.beginPath()
 		@ctx.moveTo item.x + item.radius, item.y
 		@ctx.arc item.x, item.y, item.radius, 0, Math.PI * 2, true
-		grdX = item.x - item.radius / 3
-		grdY = item.y - item.radius / 3
-		grd = @ctx.createRadialGradient grdX, grdY, item.radius / 2, grdX, grdY, item.radius * 1.5
-		grd.addColorStop 0, @cache.centerColor
-		grd.addColorStop 1, @cache.sideColor
-		@ctx.fillStyle = grd # @todo move gradient generation to Bubble class
+		@ctx.fillStyle = item.generateGradient()
 		@ctx.fill()
 		@ctx.stroke()
 		return

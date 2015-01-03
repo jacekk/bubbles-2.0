@@ -14,7 +14,7 @@ class Bubble
 	randomize: ()->
 		opts = @parent.options
 		@radius = Math.round( Math.random() * (opts.maxSize - opts.minSize) + opts.minSize )
-		@x = Math.round( Math.random() * @parent.width * 0.5 + @parent.width * 0.25)
+		@x = Math.round(Math.random() * @parent.width)
 		@speed = Math.round(Math.random() * 5 + 4) / opts.delay
 		@radians = Math.random() * Math.PI
 		if Math.random() > 0.5
@@ -31,3 +31,11 @@ class Bubble
 
 	reachedTop: ()->
 		@y < -@radius
+
+	generateGradient: ()->
+		grdX = @x - @radius / 3
+		grdY = @y - @radius / 3
+		gradient = @parent.ctx.createRadialGradient(grdX, grdY, @radius / 2, grdX, grdY, @radius * 1.5)
+		gradient.addColorStop(0, @parent.cache.centerColor)
+		gradient.addColorStop(1, @parent.cache.sideColor)
+		gradient
