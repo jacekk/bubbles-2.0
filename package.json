@@ -1,5 +1,9 @@
 {
-  "name": "bubbles2",
+  "name": "Bubbles 2.0",
+  "version": "0.1.0",
+  "author": "JacekK",
+  "homepage": "https://github.com/jacekk/bubbles-2.0",
+  "license": "MIT",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
     "grunt": "^0.4.5",

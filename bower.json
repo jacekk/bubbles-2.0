@@ -1,6 +1,9 @@
 {
   "name": "Bubbles 2.0",
-  "private": true,
+  "version": "0.1.0",
+  "author": "JacekK",
+  "homepage": "https://github.com/jacekk/bubbles-2.0",
+  "license": "MIT",
   "dependencies": {
     "jquery": "~1.11.1",
     "modernizr": "~2.8.2",
