@@ -17,8 +17,8 @@ class Bubbles
 		b: 255
 		strokeWidth: 2
 		strokeOpacity: 0.4
-		centerOpacity: 0.08
-		sideOpacity: 0.2
+		centerOpacity: 0.1
+		sideOpacity: 0.4
 	}
 
 	cache: {
@@ -47,7 +47,7 @@ class Bubbles
 
 	initIntervals: ()->
 		@resetCache()
-		setInterval @resetCache, 1000
+		setInterval @resetCache, 35
 		setInterval @addChildrenIntv, 100
 		setInterval @removeChildrenIntv, 2000
 		return
@@ -70,8 +70,6 @@ class Bubbles
 
 	generateFrame: ()->
 		@ctx.clearRect 0, 0, @width, @height
-		@ctx.lineWidth = @options.strokeWidth
-		@ctx.strokeStyle = @cache.strokeColor
 		for item in @children
 			@addCtxChild(item)
 		for item in @children
@@ -89,6 +87,8 @@ class Bubbles
 		@ctx.arc item.x, item.y, item.radius, 0, Math.PI * 2, true
 		@ctx.fillStyle = item.generateGradient()
 		@ctx.fill()
-		if @options.strokeWidth isnt 0
+		if item.strokeWidth isnt 0
+			@ctx.lineWidth = item.strokeWidth
+			@ctx.strokeStyle = item.strokeColor
 			@ctx.stroke()
 		return

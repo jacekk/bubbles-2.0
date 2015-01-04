@@ -11,14 +11,12 @@ angular
 		$scope.init = ()->
 			$scope.generateOptions()
 			$scope.generateModels()
-			# angular.element('#display-options select').selectBoxIt()
 			$scope.adjustLayout()
 			$scope.bubbles = new Bubbles 'display-area', {}
 			return
 
 		$scope.onOptionChange = (modelName, optionName)->
 			optionName = modelName unless optionName?
-			console.log modelName, $scope[modelName]
 			$scope.bubbles.options[optionName] = $scope[modelName]
 			return
 
