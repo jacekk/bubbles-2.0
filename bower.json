@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "author": "JacekK",
   "homepage": "https://github.com/jacekk/bubbles-2.0",
+  "main": "build/Bubbles.combined.min.js",
   "license": "MIT",
   "dependencies": {
     "jquery": "~1.11.1",
