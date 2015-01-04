@@ -19,7 +19,8 @@ module.exports = function (grunt) {
     // Configurable paths
     var config = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
+        build: 'build'
     };
 
     // Define the configuration for all the tasks
@@ -54,7 +55,7 @@ module.exports = function (grunt) {
             },
             coffee: {
                 files: ['<%= config.app %>/coffee/{,*/}*.coffee'],
-                tasks: ['coffee']
+                tasks: ['coffee:server']
             },
             styles: {
                 files: ['<%= config.app %>/styles/{,*/}*.css'],
@@ -269,10 +270,10 @@ module.exports = function (grunt) {
         },
 
         coffee: {
-            compile: {
-                options: {
-                    bare: true
-                },
+            options: {
+                bare: true
+            },
+            server: {
                 files: {
                     '<%= config.app %>/js/main.js': [
                         '<%= config.app %>/coffee/Bubble.coffee',
@@ -280,6 +281,20 @@ module.exports = function (grunt) {
                         '<%= config.app %>/coffee/ngApp.coffee',
                     ]
                 }
+            },
+            build: {
+                files: {
+                    '<%= config.build %>/Bubble.js': '<%= config.app %>/coffee/Bubble.coffee',
+                    '<%= config.build %>/Bubbles.js': '<%= config.app %>/coffee/Bubbles.coffee',
+                }
+            },
+            min: {
+                files: {
+                    '<%= config.build %>/Bubbles.combined.js': [
+                        '<%= config.app %>/coffee/Bubble.coffee',
+                        '<%= config.app %>/coffee/Bubbles.coffee',
+                    ]
+                },
             },
         },
 
@@ -318,15 +333,15 @@ module.exports = function (grunt) {
         //     }
         //   }
         // },
-        // uglify: {
-        //   dist: {
-        //     files: {
-        //       '<%= config.dist %>/scripts/scripts.js': [
-        //         '<%= config.dist %>/scripts/scripts.js'
-        //       ]
-        //     }
-        //   }
-        // },
+        uglify: {
+          coffeeMin: {
+            files: {
+              '<%= config.build %>/Bubbles.combined.min.js': [
+                '<%= config.build %>/Bubbles.combined.js'
+              ]
+            }
+          }
+        },
         // concat: {
         //   dist: {}
         // },
@@ -379,7 +394,7 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
-                'coffee',
+                'coffee:server',
                 'sass:server',
                 'copy:styles'
             ],
