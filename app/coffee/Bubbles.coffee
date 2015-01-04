@@ -27,7 +27,7 @@ class Bubbles
 		sideColor: ''
 	}
 
-	constructor: (canvasId, options)->
+	constructor: (canvasId, options = {})->
 		el = document.getElementById canvasId
 		if not el or not el.getContext or not el.getContext('2d')
 			console.log 'ERR: no 2d context'

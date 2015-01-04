@@ -50,11 +50,10 @@ angular
 			return
 
 		$scope.adjustLayout = ()->
-			$scope.canvas = angular.element('#display-area')[0]
+			$scope.canvas = $('#display-area')[0]
 			$scope.canvas.width = window.innerWidth
-			topBarPadAndBorder = 9
-			topBarHei = angular.element('#display-options').height() + topBarPadAndBorder
-			$scope.canvas.height = window.innerHeight - topBarHei
+			barHei = $('#display-options').height()
+			$scope.canvas.height = window.innerHeight - barHei - 1
 			return
 
 		return

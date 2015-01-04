@@ -33,10 +33,13 @@ Bubbles = (function() {
   };
 
   function Bubbles(canvasId, options) {
+    var el;
+    if (options == null) {
+      options = {};
+    }
     this.removeChildrenIntv = __bind(this.removeChildrenIntv, this);
     this.addChildrenIntv = __bind(this.addChildrenIntv, this);
     this.resetCache = __bind(this.resetCache, this);
-    var el;
     el = document.getElementById(canvasId);
     if (!el || !el.getContext || !el.getContext('2d')) {
       console.log('ERR: no 2d context');

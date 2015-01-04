@@ -112,8 +112,12 @@
 		<!-- endbower -->
 		<!-- endbuild -->
 
-		<!-- build:js({app,.tmp}) scripts/main.js -->
+		<!-- build:js(.) scripts/app-vendor.js -->
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
+		<!-- endbuild -->
+
+		<!-- build:js({app,.tmp}) scripts/main.js -->
 		<script src="js/main.js"></script>
 		<!-- endbuild -->
 </body>
