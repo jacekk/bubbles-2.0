@@ -12,29 +12,11 @@ angular
 			$scope.generateOptions()
 			$scope.initModels()
 			$scope.adjustLayout()
-			options = $scope.getBubblesOptions()
-			$scope.bubbles = new Bubbles 'display-area', options
+			$scope.bubbles = new Bubbles 'display-area', $scope.models
 			return
 
-		$scope.getBubblesOptions = ()->
-			m = $scope.models
-			{
-				maxSize: m.maxSize
-				minSize: m.minSize
-				amount: m.amount
-				delay: m.delay
-				r: m.colorRed
-				g: m.colorGreen
-				b: m.colorBlue
-				strokeWidth: m.strokeWidth
-				strokeOpacity: m.strokeOpacity
-				centerOpacity: m.centerOpacity
-				sideOpacity: m.sideOpacity
-			}
-
-		$scope.onOptionChange = (modelName, optionName)->
-			optionName = modelName unless optionName?
-			$scope.bubbles.options[optionName] = $scope.models[modelName]
+		$scope.onOptionChange = (modelName)->
+			$scope.bubbles.options[modelName] = $scope.models[modelName]
 			return
 
 		$scope.generateOptions = ()->
@@ -61,9 +43,9 @@ angular
 				centerOpacity: 0.1
 				sideOpacity: 0.2
 				# colors
-				colorRed: $scope.ranges.colorRange[0]
-				colorGreen: $scope.ranges.colorRange[9]
-				colorBlue: $scope.ranges.colorRange[-1..][0]
+				red: $scope.ranges.colorRange[0]
+				green: $scope.ranges.colorRange[9]
+				blue: $scope.ranges.colorRange[-1..][0]
 			}
 			return
 

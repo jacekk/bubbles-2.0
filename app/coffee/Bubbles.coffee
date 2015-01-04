@@ -12,9 +12,9 @@ class Bubbles
 		minSize: 20
 		amount: 100
 		delay: 1
-		r: 0
-		g: 144
-		b: 255
+		red: 0
+		green: 144
+		blue: 255
 		strokeWidth: 4
 		strokeOpacity: 0.4
 		centerOpacity: 0.1
@@ -53,7 +53,7 @@ class Bubbles
 		return
 
 	resetCache: ()=>
-		color = "rgba(#{@options.r}, #{@options.g}, #{@options.b}, {0})"
+		color = "rgba(#{@options.red}, #{@options.green}, #{@options.blue}, {0})"
 		@cache.strokeColor = color.replace '{0}', @options.strokeOpacity
 		@cache.centerColor = color.replace '{0}', @options.centerOpacity
 		@cache.sideColor = color.replace '{0}', @options.sideOpacity
