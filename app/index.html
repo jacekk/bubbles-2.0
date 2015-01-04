@@ -24,29 +24,29 @@
 			<div class="option-group">
 				<label>Size range</label>
 				<select
-					ng-model="minSize"
-					ng-options="item for item in sizeRange"
+					ng-model="models.minSize"
+					ng-options="item for item in ranges.sizeRange"
 					ng-change="onOptionChange('minSize')"
 				></select>
 				<select
-					ng-model="maxSize"
-					ng-options="item for item in sizeRange"
+					ng-model="models.maxSize"
+					ng-options="item for item in ranges.sizeRange"
 					ng-change="onOptionChange('maxSize')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Amount</label>
 				<select
-					ng-model="amount"
-					ng-options="item for item in amountRange"
+					ng-model="models.amount"
+					ng-options="item for item in ranges.amountRange"
 					ng-change="onOptionChange('amount')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Delay</label>
 				<select
-					ng-model="delay"
-					ng-options="item for item in delayRange"
+					ng-model="models.delay"
+					ng-options="item for item in ranges.delayRange"
 					ng-change="onOptionChange('delay')"
 				></select>
 			</div>
@@ -54,56 +54,56 @@
 			<div class="option-group">
 				<label>Red</label>
 				<select
-					ng-model="colorRed"
-					ng-options="item for item in colorRange"
+					ng-model="models.colorRed"
+					ng-options="item for item in ranges.colorRange"
 					ng-change="onOptionChange('colorRed', 'r')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Green</label>
 				<select
-					ng-model="colorGreen"
-					ng-options="item for item in colorRange"
+					ng-model="models.colorGreen"
+					ng-options="item for item in ranges.colorRange"
 					ng-change="onOptionChange('colorGreen', 'g')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Blue</label>
 				<select
-					ng-model="colorBlue"
-					ng-options="item for item in colorRange"
+					ng-model="models.colorBlue"
+					ng-options="item for item in ranges.colorRange"
 					ng-change="onOptionChange('colorBlue', 'b')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Stroke Width</label>
 				<select
-					ng-model="strokeWidth"
-					ng-options="item for item in strokeWidths"
+					ng-model="models.strokeWidth"
+					ng-options="item for item in ranges.strokeWidths"
 					ng-change="onOptionChange('strokeWidth')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Stroke Opacity</label>
 				<select
-					ng-model="strokeOpacity"
-					ng-options="item as item|fixed for item in zeroToOneRange"
+					ng-model="models.strokeOpacity"
+					ng-options="item as item|fixed for item in ranges.zeroToOneRange"
 					ng-change="onOptionChange('strokeOpacity')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Center Opacity</label>
 				<select
-					ng-model="centerOpacity"
-					ng-options="item as item|fixed for item in zeroToOneRange"
+					ng-model="models.centerOpacity"
+					ng-options="item as item|fixed for item in ranges.zeroToOneRange"
 					ng-change="onOptionChange('centerOpacity')"
 				></select>
 			</div>
 			<div class="option-group">
 				<label>Side Opacity</label>
 				<select
-					ng-model="sideOpacity"
-					ng-options="item as item|fixed for item in zeroToOneRange"
+					ng-model="models.sideOpacity"
+					ng-options="item as item|fixed for item in ranges.zeroToOneRange"
 					ng-change="onOptionChange('sideOpacity')"
 				></select>
 			</div>
