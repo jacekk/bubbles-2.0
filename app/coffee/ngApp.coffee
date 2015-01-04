@@ -10,7 +10,7 @@ angular
 
 		$scope.init = ()->
 			$scope.generateOptions()
-			$scope.generateModels()
+			$scope.initModels()
 			$scope.adjustLayout()
 			$scope.bubbles = new Bubbles 'display-area', {}
 			return
@@ -24,9 +24,18 @@ angular
 			$scope.colorRange = [0].concat(i*16-1 for i in [1..16])
 			$scope.strokeWidths = [0..20]
 			$scope.zeroToOneRange = (i/10 for i in [0..10])
+			$scope.sizeRange = (i*10 for i in [1..15])
+			$scope.amountRange = (i*10 for i in [1..50])
+			$scope.delayRange = [1..5]
 			return
 
-		$scope.generateModels = ()->
+		$scope.initModels = ()->
+			# parent
+			$scope.minSize = $scope.sizeRange[0]
+			$scope.maxSize = $scope.sizeRange[-1..][0]
+			$scope.amount = 50
+			$scope.delay = 1
+			# children
 			$scope.strokeWidth = 2
 			$scope.strokeOpacity = 0.4
 			$scope.centerOpacity = 0.1

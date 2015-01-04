@@ -22,6 +22,36 @@
 	<body>
 		<div id="display-options" ng-controller="OptionsController" ng-init="init()">
 			<div class="option-group">
+				<label>Size range</label>
+				<select
+					ng-model="minSize"
+					ng-options="item for item in sizeRange"
+					ng-change="onOptionChange('minSize')"
+				></select>
+				<select
+					ng-model="maxSize"
+					ng-options="item for item in sizeRange"
+					ng-change="onOptionChange('maxSize')"
+				></select>
+			</div>
+			<div class="option-group">
+				<label>Amount</label>
+				<select
+					ng-model="amount"
+					ng-options="item for item in amountRange"
+					ng-change="onOptionChange('amount')"
+				></select>
+			</div>
+			<div class="option-group">
+				<label>Delay</label>
+				<select
+					ng-model="delay"
+					ng-options="item for item in delayRange"
+					ng-change="onOptionChange('delay')"
+				></select>
+			</div>
+			<div class="delimiter"></div>
+			<div class="option-group">
 				<label>Red</label>
 				<select
 					ng-model="colorRed"
@@ -57,7 +87,7 @@
 				<label>Stroke Opacity</label>
 				<select
 					ng-model="strokeOpacity"
-					ng-options="item as item for item in zeroToOneRange"
+					ng-options="item as item|fixed for item in zeroToOneRange"
 					ng-change="onOptionChange('strokeOpacity')"
 				></select>
 			</div>
@@ -65,7 +95,7 @@
 				<label>Center Opacity</label>
 				<select
 					ng-model="centerOpacity"
-					ng-options="item as item for item in zeroToOneRange"
+					ng-options="item as item|fixed for item in zeroToOneRange"
 					ng-change="onOptionChange('centerOpacity')"
 				></select>
 			</div>
@@ -73,7 +103,7 @@
 				<label>Side Opacity</label>
 				<select
 					ng-model="sideOpacity"
-					ng-options="item as item for item in zeroToOneRange"
+					ng-options="item as item|fixed for item in zeroToOneRange"
 					ng-change="onOptionChange('sideOpacity')"
 				></select>
 			</div>

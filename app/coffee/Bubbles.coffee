@@ -15,10 +15,10 @@ class Bubbles
 		r: 0
 		g: 144
 		b: 255
-		strokeWidth: 2
+		strokeWidth: 4
 		strokeOpacity: 0.4
 		centerOpacity: 0.1
-		sideOpacity: 0.4
+		sideOpacity: 0.5
 	}
 
 	cache: {
@@ -47,9 +47,9 @@ class Bubbles
 
 	initIntervals: ()->
 		@resetCache()
-		setInterval @resetCache, 35
-		setInterval @addChildrenIntv, 100
-		setInterval @removeChildrenIntv, 2000
+		setInterval @resetCache, 1000
+		setInterval @addChildrenIntv, 50
+		setInterval @removeChildrenIntv, 500
 		return
 
 	resetCache: ()=>
